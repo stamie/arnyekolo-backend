@@ -29,6 +29,7 @@ async function sendCalculation() {
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
+    return res.json({ message: "Document inserted successfully.", response: response.insertedId });
   }
 }
 
@@ -65,13 +66,21 @@ app.post('/calc', (req, res) => {
   const baseCost = parseFloat(rawMaterialPrice) + parseFloat(motorPrice);
   const netTotalPrice = baseCost * (1 + MARGIN_PERCENTAGE / 100);
   const grossTotalPrice = netTotalPrice * VAT_RATE;
-  sendCalculation();
-  return res.json({
+  try {
+    const response_ = await sendCalculation();
+    return res.json({
     areaSqm: areaSqm.toFixed(2),
     netTotalPrice: Math.round(netTotalPrice),
-    grossTotalPrice: Math.round(grossTotalPrice)
+    grossTotalPrice: Math.round(grossTotalPrice),
+    message: "Document inserted successfully.",
+    response: response_.response.insertedId
+
   });
 
+  } catch (error) {
+    return res.status(500).json({ error: "Error occurred while inserting document:", error });
+  }
+  
 });
 
 app.post('/backend', (req, res) => {
