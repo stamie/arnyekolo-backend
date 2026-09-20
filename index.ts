@@ -15,21 +15,24 @@ const client = new MongoClient(uri, {
 const Db = client.db("orders");
 
 async function sendCalculation() {
+  const response_ = { error: "Error occurred while inserting document:", response: -1 };
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
     const collection = Db.collection("orders");
-    
-    try {
-      const response = await collection.insertOne({insert: "ping"});
-    } catch (error) {
-      return { error: "Error occurred while inserting document:", response: -1 };
-    }
+    response_ = { 
+      response: await collection.insertOne({insert: "ping"}),
+      message: "Document inserted successfully."
+    };
+    return response_;
+  } catch (error) {
+    return response_;
+  
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
-    return { message: "Document inserted successfully.", response: response.insertedId };
+    
   }
 }
 
