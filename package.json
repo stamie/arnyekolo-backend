@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "main": "customers.ts",
   "scripts": {
-    "start": "node customers.ts"
+    "start": "tsx customers.ts"
   }
 }
