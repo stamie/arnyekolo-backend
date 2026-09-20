@@ -15,7 +15,7 @@ const client = new MongoClient(uri, {
 const Db = client.db("orders");
 
 async function sendCalculation(jsonInsertData: {}) {
-  let response_ = { error: "Error occurred while inserting document:", response: -1 };
+  var response_ = { error: "Error occurred while inserting document:", response: -1 };
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
