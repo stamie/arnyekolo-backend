@@ -29,7 +29,7 @@ async function sendCalculation() {
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
-    return { message: "Document inserted successfully.", response: response.insertedId() };
+    return { message: "Document inserted successfully.", response: response.insertedId };
   }
 }
 
@@ -78,7 +78,7 @@ app.post('/calc', async (req, res) => {
     });
 
   } catch (error) {
-    return res.status(400).json({ error: "Error occurred while inserting document:" + error });
+    return res.status(400).json({ error: " Error occurred while inserting document: " + error });
   }
   
 });
