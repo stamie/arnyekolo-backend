@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "license": "UNLICENSED",
-  "main": "customers.ts",
+  "main": "index.ts",
   "scripts": {
-    "start": "tsx ./customers.ts"
+    "start": "tsx ./index.ts"
   },
   "dependencies": {
     "tsx": "^4.0.0"
