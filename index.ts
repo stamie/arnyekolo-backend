@@ -23,7 +23,7 @@ async function sendCalculation(jsonInsertData: json) {
     const collection = Db.collection("orders");
     const res = await collection.insertOne(jsonInsertData);
     response_ = { 
-      result: res.insertedId(),
+      result: res.insertedId.toString(),
       message: "Document inserted successfully."
     };
     
