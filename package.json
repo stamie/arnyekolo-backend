@@ -6,7 +6,7 @@
   "main": "customers.ts",
   "scripts": {
     "start": "tsx ./customers.ts"
-  }
+  },
   "dependencies": {
     "tsx": "^4.0.0"
   }
