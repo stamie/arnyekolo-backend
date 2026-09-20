@@ -44,13 +44,10 @@ app.get('/', (req, res) => {
 
 // Backend API végpont
 app.post('/calc', (req, res) => {
-  if (!req.body.width || !req.body.height || !req.body.materialPrice || !req.body.motorPrice || !req.body.color) {
+  const { width, height, materialPrice, motorPrice, color } = req.body;
+  if (!width || !height || !materialPrice || !motorPrice || !color) {
     return res.status(400).json({ error: 'Hiányzó paraméterek. Kérlek add meg a szélességet, magasságot, anyagtípusát, motor paraméterét és anyag színét.' });
   }
-  const width = parseFloat(req.body.width);
-  const height = parseFloat(req.body.height);
-  const color = req.body.color;
-  const motorPrice = parseFloat(req.body.motorPrice);
 
 // --- 1. ÁRKALUKÁCIÓS LOGIKA (TypeScript/JS) ---
   const VAT_RATE = 1.27; // 27% ÁFA
@@ -62,9 +59,9 @@ app.post('/calc', (req, res) => {
     return res.status(400).json({ error: "A dimenzióknak pozitív számnak kell lenniük." });
   }
 
-  const areaSqm = (width / 1000) * (height / 1000);
+  const areaSqm = (parseFloat(width) / 1000) * (parseFloat(height) / 1000);
   const rawMaterialPrice = areaSqm * MATERIAL_PRICE_PER_SQM;
-  const baseCost = rawMaterialPrice + motorPrice;
+  const baseCost = parseFloat(rawMaterialPrice) + parseFloat(motorPrice);
   const netTotalPrice = baseCost * (1 + MARGIN_PERCENTAGE / 100);
   const grossTotalPrice = netTotalPrice * VAT_RATE;
   sendCalculation();
