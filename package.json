@@ -1,6 +1,8 @@
 {
   "name": "arnyekolo-backend",
   "version": "1.0.0",
+  "private": true,
+  "license": "UNLICENSED",
   "main": "customers.ts",
   "scripts": {
     "start": "tsx ./customers.ts"
