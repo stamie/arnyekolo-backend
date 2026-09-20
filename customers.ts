@@ -12,6 +12,9 @@ app.get('/', (req, res) => {
 
 // Kalkuláció API végpont
 app.get('/kalkulacio', (req, res) => {
+  if (!req.query.width || !req.query.height || !req.query.materialPrice || !req.query.motorPrice || !req.query.margin) {
+    return res.status(400).json({ error: 'Hiányzó paraméterek. Kérlek add meg a width, height, materialPrice, motorPrice és margin paramétereket.' });
+  }
   const terulet = 10;
   const nettoAnyagar = 150000;
   const nettoMotorar = 45000;
