@@ -21,8 +21,9 @@ async function sendCalculation() {
     await client.connect();
     // Send a ping to confirm a successful connection
     const collection = Db.collection("orders");
+    const res = await collection.insertOne({insert: "ping"});
     response_ = { 
-      response: await collection.insertOne({insert: "ping"}),
+      response: res.insertedId,
       message: "Document inserted successfully."
     };
     return response_;
