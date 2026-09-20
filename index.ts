@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://estampel_db_user:AxoQHPVCm3SFIwSD@arnyekolo.kwdrczy.mongodb.net";
+const uri = process.env.MONGODB_URI;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -23,7 +23,7 @@ async function sendCalculation(jsonInsertData: json) {
     const collection = Db.collection("orders");
     const res = await collection.insertOne(jsonInsertData);
     response_ = { 
-      result: res.insertedId,
+      result: res.insertedId(),
       message: "Document inserted successfully."
     };
     
