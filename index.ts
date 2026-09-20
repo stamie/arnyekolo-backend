@@ -11,14 +11,14 @@ app.get('/', (req, res) => {
 });
 
 // Backend API végpont
-app.get('/calc', (req, res) => {
-  if (!req.query.width || !req.query.height || !req.query.materialPrice || !req.query.motorPrice || !req.query.color) {
+app.post('/calc', (req, res) => {
+  if (!req.body.width || !req.body.height || !req.body.materialPrice || !req.body.motorPrice || !req.body.color) {
     return res.status(400).json({ error: 'Hiányzó paraméterek. Kérlek add meg a szélességet, magasságot, anyagtípusát, motor paraméterét és anyag színét.' });
   }
-  const width = parseFloat(req.query.width);
-  const height = parseFloat(req.query.height);
-  const color = req.query.color;
-  const motorPrice = parseFloat(req.query.motorPrice);
+  const width = parseFloat(req.body.width);
+  const height = parseFloat(req.body.height);
+  const color = req.body.color;
+  const motorPrice = parseFloat(req.body.motorPrice);
 
 // --- 1. ÁRKALUKÁCIÓS LOGIKA (TypeScript/JS) ---
   const VAT_RATE = 1.27; // 27% ÁFA
@@ -44,8 +44,8 @@ app.get('/calc', (req, res) => {
 
 });
 
-app.get('/backend', (req, res) => {
-  if (!req.query.user || !req.query.password) {
+app.post('/backend', (req, res) => {
+  if (!req.body.user || !req.body.password) {
     return res.status(400).json({ error: 'Hiányzó paraméterek. Kérlek add meg a user és password paramétereket.' });
   }
 });
