@@ -67,7 +67,7 @@ app.post('/calc', (req, res) => {
   const baseCost = rawMaterialPrice + motorPrice;
   const netTotalPrice = baseCost * (1 + MARGIN_PERCENTAGE / 100);
   const grossTotalPrice = netTotalPrice * VAT_RATE;
-
+  sendCalculation();
   return res.json({
     areaSqm: areaSqm.toFixed(2),
     netTotalPrice: Math.round(netTotalPrice),
@@ -86,7 +86,7 @@ app.post('/backend', (req, res) => {
   // Itt végezheted el a backend logikát, például ellenőrizheted a felhasználót és jelszót.
   // Például:
   if (user === 'admin' && password === 'password123') {
-   sendCalculation(); // Hívjuk meg az adatbázisba történő mentést
+    // Hívjuk meg az adatbázisba történő mentést
    return res.json({ message: 'Sikeres bejelentkezés!' });
   } else {
     return res.status(401).json({ error: 'Hibás felhasználónév vagy jelszó.' });
