@@ -24,7 +24,7 @@ async function sendCalculation() {
     try {
       const response = await collection.insertOne({insert: "ping"});
     } catch (error) {
-    console.error("Error occurred while inserting document:", error);
+      return res.status(500).json({ error: "Error occurred while inserting document:", error });
     }
   } finally {
     // Ensures that the client will close when you finish/error
