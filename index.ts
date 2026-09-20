@@ -12,16 +12,17 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   }
 });
+const Db = client.db("orders");
 
 async function sendCalculation() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
-    const Db = client.db("orders");
     const collection = Db.collection("orders");
+    
     try {
-    await collection.insertOne({insert: "ping"});
+      const response = await collection.insertOne({insert: "ping"});
     } catch (error) {
     console.error("Error occurred while inserting document:", error);
     }
