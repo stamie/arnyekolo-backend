@@ -1,8 +1,0 @@
-{
-  "name": "arnyekolo-backend",
-  "version": "1.0.0",
-  "main": "customers.js",
-  "scripts": {
-    "start": "node customers.js"
-  }
-}
