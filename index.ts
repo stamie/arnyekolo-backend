@@ -29,7 +29,7 @@ async function sendCalculation() {
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
-    return res.json({ message: "Document inserted successfully.", response: response.insertedId });
+    return { message: "Document inserted successfully.", response: response.insertedId() };
   }
 }
 
@@ -73,7 +73,7 @@ app.post('/calc', (req, res) => {
     netTotalPrice: Math.round(netTotalPrice),
     grossTotalPrice: Math.round(grossTotalPrice),
     message: "Document inserted successfully.",
-    response: response_.response.insertedId
+    response: response_.response
 
   });
 
