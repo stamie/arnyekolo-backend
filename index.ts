@@ -27,6 +27,26 @@ async function sendCalculation(jsonInsertData: json) {
       message: "Document inserted successfully."
     };
     
+  } catch (error) {  
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+    return response_;
+  }
+}
+async function queryOrders(jsonQuery: json) {
+  var response_ = { error: "Error occurred while querying documents:", result: {} };
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    const collection = Db.collection("orders");
+    const res = await collection.find(jsonQuery);
+    response_ = { 
+      result: res,
+      message: "Documents queried successfully."
+    };
+    
   } catch (error) {
     
   
@@ -92,18 +112,16 @@ app.post('/calc', async (req, res) => {
   
 });
 
-app.post('/backend', (req, res) => {
-  if (!req.body.user || !req.body.password) {
-    return res.status(400).json({ error: 'Hiányzó paraméterek. Kérlek add meg a user és password paramétereket.' });
-  }
-  const user = req.body.user;
-  const password = req.body.password;
-
+app.post('/backend/rendelesek', async (req, res) => {
+  const {username, password, query} = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Hiányzó paraméterek. Kérlek add meg a username és password paramétereket.' });
+  }  
   // Itt végezheted el a backend logikát, például ellenőrizheted a felhasználót és jelszót.
   // Például:
-  if (user === 'admin' && password === 'password123') {
-    // Hívjuk meg az adatbázisba történő mentést
-   return res.json({ message: 'Sikeres bejelentkezés!' });
+  if (username === 'admin' && password === 'password123') {
+    const result_ = await queryOrders(query);
+    return res.json({ message: 'Sikeres bejelentkezés!', result: result_ });
   } else {
     return res.status(401).json({ error: 'Hibás felhasználónév vagy jelszó.' });
   }
