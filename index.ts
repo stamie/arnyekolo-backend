@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
 });
 
 // Backend API végpont
-app.post('/calc', (req, res) => {
+app.post('/calc', async (req, res) => {
   const { width, height, motorPrice, color } = req.body;
   if (!width || !height || !motorPrice || !color) {
     return res.status(400).json({ error: 'Hiányzó paraméterek. Kérlek add meg a szélességet, magasságot, anyagtípusát, motor paraméterét és anyag színét.' });
