@@ -15,7 +15,7 @@ const client = new MongoClient(uri, {
 const Db = client.db("orders");
 
 async function sendCalculation(jsonInsertData: json) {
-  var response_ = { error: "Error occurred while inserting document:", response: '-1' };
+  var response_ = { error: "Error occurred while inserting document:", result: '-1' };
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
@@ -23,7 +23,7 @@ async function sendCalculation(jsonInsertData: json) {
     const collection = Db.collection("orders");
     const res = await collection.insertOne(jsonInsertData);
     response_ = { 
-      response: res.insertedId,
+      result: res.insertedId,
       message: "Document inserted successfully."
     };
     
@@ -75,12 +75,14 @@ app.post('/calc', async (req, res) => {
       areaSqm: areaSqm.toFixed(2),
       netTotalPrice: Math.round(netTotalPrice),
       grossTotalPrice: Math.round(grossTotalPrice),
-      message: "Document inserted successfully.",
-      response: response_.response
-
+      width: parseFloat(width),
+      height: parseFloat(height),
+      motorPrice: parseFloat(motorPrice),
+      color: color,
+      timestamp: new Date().toISOString()
     };
     const response_ = await sendCalculation(insertData);
-    return res.status(200).json(insertData);
+    return res.status(200).json(response_);
 
   } catch (error) {
     return res.status(400).json({ error: " Error occurred while inserting document: " + error });
