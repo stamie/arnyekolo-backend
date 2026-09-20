@@ -22,7 +22,7 @@ async function sendCalculation() {
     const collection = Db.collection("orders");
     try {
     await collection.insertOne({insert: "ping"});
-    catch (error) {
+    } catch (error) {
     console.error("Error occurred while inserting document:", error);
     }
   } finally {
