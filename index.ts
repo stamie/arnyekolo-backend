@@ -14,14 +14,14 @@ const client = new MongoClient(uri, {
 });
 const Db = client.db("orders");
 
-async function sendCalculation() {
+async function sendCalculation(jsonInsertData: {}) {
   let response_ = { error: "Error occurred while inserting document:", response: -1 };
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
     const collection = Db.collection("orders");
-    const res = await collection.insertOne({insert: "ping"});
+    const res = await collection.insertOne(jsonInsertData);
     response_ = { 
       response: res.insertedId,
       message: "Document inserted successfully."
@@ -67,19 +67,20 @@ app.post('/calc', async (req, res) => {
 
   const areaSqm = (parseFloat(width) / 1000) * (parseFloat(height) / 1000);
   const rawMaterialPrice = areaSqm * MATERIAL_PRICE_PER_SQM;
-  const baseCost = parseFloat(rawMaterialPrice) + parseFloat(motorPrice);
+  const baseCost = rawMaterialPrice + parseFloat(motorPrice);
   const netTotalPrice = baseCost * (1 + MARGIN_PERCENTAGE / 100);
   const grossTotalPrice = netTotalPrice * VAT_RATE;
   try {
-    const response_ = await sendCalculation();
-    return res.status(200).json({
+    const insertData = {
       areaSqm: areaSqm.toFixed(2),
       netTotalPrice: Math.round(netTotalPrice),
       grossTotalPrice: Math.round(grossTotalPrice),
       message: "Document inserted successfully.",
       response: response_.response
 
-    });
+    };
+    const response_ = await sendCalculation(insertData);
+    return res.status(200).json(insertData);
 
   } catch (error) {
     return res.status(400).json({ error: " Error occurred while inserting document: " + error });
