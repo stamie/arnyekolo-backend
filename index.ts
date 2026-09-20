@@ -68,17 +68,17 @@ app.post('/calc', (req, res) => {
   const grossTotalPrice = netTotalPrice * VAT_RATE;
   try {
     const response_ = sendCalculation();
-    return res.json({
-    areaSqm: areaSqm.toFixed(2),
-    netTotalPrice: Math.round(netTotalPrice),
-    grossTotalPrice: Math.round(grossTotalPrice),
-    message: "Document inserted successfully.",
-    response: response_.response
+    return res.status(200).json({
+      areaSqm: areaSqm.toFixed(2),
+      netTotalPrice: Math.round(netTotalPrice),
+      grossTotalPrice: Math.round(grossTotalPrice),
+      message: "Document inserted successfully.",
+      response: response_.response
 
-  });
+    });
 
   } catch (error) {
-    return res.status(500).json({ error: "Error occurred while inserting document:", error });
+    return res.status(400).json({ error: "Error occurred while inserting document:" + error });
   }
   
 });
