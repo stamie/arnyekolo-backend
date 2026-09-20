@@ -67,7 +67,7 @@ app.post('/calc', (req, res) => {
   const netTotalPrice = baseCost * (1 + MARGIN_PERCENTAGE / 100);
   const grossTotalPrice = netTotalPrice * VAT_RATE;
   try {
-    const response_ = sendCalculation();
+    const response_ = await sendCalculation();
     return res.status(200).json({
       areaSqm: areaSqm.toFixed(2),
       netTotalPrice: Math.round(netTotalPrice),
