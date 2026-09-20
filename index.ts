@@ -26,14 +26,14 @@ async function sendCalculation(jsonInsertData: json) {
       response: res.insertedId,
       message: "Document inserted successfully."
     };
-    return response_;
+    
   } catch (error) {
-    return response_;
+    
   
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
-    
+    return response_;
   }
 }
 
