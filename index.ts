@@ -81,8 +81,8 @@ app.post('/backend', (req, res) => {
   // Itt végezheted el a backend logikát, például ellenőrizheted a felhasználót és jelszót.
   // Például:
   if (user === 'admin' && password === 'password123') {
-    mongoose.connect('mongodb://localhost:27017/mydatabase', { useNewUrlParser: true, useUnifiedTopology: true });
-    return res.json({ message: 'Sikeres bejelentkezés!' });
+   sendCalculation(); // Hívjuk meg az adatbázisba történő mentést
+   return res.json({ message: 'Sikeres bejelentkezés!' });
   } else {
     return res.status(401).json({ error: 'Hibás felhasználónév vagy jelszó.' });
   }
