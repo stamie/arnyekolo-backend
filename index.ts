@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://estampel_db_user:AxoQHPVCm3SFIwSD@arnyekolo.kwdrczy.mongodb.net/?appName=arnyekolo";
+const uri = "mongodb+srv://estampel_db_user:AxoQHPVCm3SFIwSD@arnyekolo.kwdrczy.mongodb.net";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -18,8 +18,13 @@ async function sendCalculation() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
-    await client.db("orders").collection("orders").insertOne({insert: "ping"});
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    const Db = client.db("orders");
+    const collection = Db.collection("orders");
+    try {
+    await collection.insertOne({insert: "ping"});
+    catch (error) {
+    console.error("Error occurred while inserting document:", error);
+    }
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
