@@ -1,8 +1,8 @@
 {
   "name": "arnyekolo-backend",
   "version": "1.0.0",
-  "main": "customers.js",
+  "main": "customers.ts",
   "scripts": {
-    "start": "node customers.js"
+    "start": "node customers.ts"
   }
 }
