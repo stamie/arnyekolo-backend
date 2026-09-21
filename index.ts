@@ -46,16 +46,14 @@ async function queryOrders(jsonQuery: json) {
       result: res,
       message: "Documents queried successfully."
     };
-    
+  return response_;  
   } catch (error) {
     
-  
+  return response_;
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
-    
+    await client.close(); 
   }
-  return response_;
 }
 
 const app = express();
