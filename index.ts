@@ -113,7 +113,7 @@ app.post('/calc', async (req, res) => {
 });
 app.get('/backend', async (req, res) => {
   return res.status(200).json({ message: 'Backend működik!' });
-}));
+});
 app.get('/backend/rendelesek', async (req, res) => {
   const query = req.query.q; // Lekérdezési paraméterek a URL-ből
   const token = req.query.token as string;
