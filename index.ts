@@ -123,7 +123,7 @@ app.get('/backend/rendelesek', async (req, res) => {
   } else {
     return res.status(401).json({ error: 'Hibás token.' });
   }
-}));
+});
 
 app.post('/backend/login', async (req, res) => {
   const {username, password} = req.body;
