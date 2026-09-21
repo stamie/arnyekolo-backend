@@ -41,7 +41,7 @@ async function queryOrders(jsonQuery: json) {
     await client.connect();
     // Send a ping to confirm a successful connection
     const collection = Db.collection("orders");
-    const res = await collection.find();
+    const res = await collection.find(jsonQuery).toArray();
     response_ = { 
       result: res,
       message: "Documents queried successfully."
@@ -118,7 +118,7 @@ app.get('/backend/rendelesek', async (req, res) => {
   const token = req.query.token as string;
   if (token === 'secret-token-123') {
     if (!query) {
-      const result_ = await queryOrders(JSON.parse('{}'));
+      const result_ = await queryOrders(({});
       return res.json({ success: true, token: 'secret-token-123', result: result_ });   
     } else {
       try {
