@@ -91,7 +91,7 @@ app.post('/calc', async (req, res) => {
   const grossTotalPrice = netTotalPrice * VAT_RATE;
   try {
     const insertData = {
-      fullName: fullName,
+      fullname: fullname,
       phone: phone,
       areaSqm: areaSqm.toFixed(2),
       netTotalPrice: Math.round(netTotalPrice),
