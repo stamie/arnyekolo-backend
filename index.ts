@@ -133,7 +133,7 @@ app.post('/backend/login', async (req, res) => {
   // Itt végezheted el a backend logikát, például ellenőrizheted a felhasználót és jelszót.
   // Például:
   if (username === 'admin' && password === 'password123') {
-    return res.json({ success: true, token: 'secret-token-123', result: result_ });
+    return res.json({ success: true, token: 'secret-token-123'});
   } else {
     return res.status(401).json({ error: 'Hibás felhasználónév vagy jelszó.' });
   }
