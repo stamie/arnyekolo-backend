@@ -111,6 +111,9 @@ app.post('/calc', async (req, res) => {
   }
   
 });
+app.get(('/backend', async (req, res) => {
+  return res.status(200).json({ message: 'Backend működik!' });
+}));
 
 app.post('/backend/rendelesek', async (req, res) => {
   const {username, password, query} = req.body;
@@ -121,6 +124,7 @@ app.post('/backend/rendelesek', async (req, res) => {
   // Például:
   if (username === 'admin' && password === 'password123') {
     const result_ = await queryOrders(query);
+    return res.json({ success: true, token: 'secret-token-123' });
     return res.json({ message: 'Sikeres bejelentkezés!', result: result_ });
   } else {
     return res.status(401).json({ error: 'Hibás felhasználónév vagy jelszó.' });
