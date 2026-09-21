@@ -119,8 +119,8 @@ app.get('/backend/rendelesek', async (req, res) => {
   const token = req.query.token as string;
   if (token === 'secret-token-123') {
     if (!query) {
-      const result_ = await queryOrders(JSON.parse('{}'));
-      return res.json({ success: true, token: 'secret-token-123', result: result_ });   
+     // const result_ = await queryOrders(JSON.parse('{}'));
+      return res.json({ success: true, token: 'secret-token-123'});   
     } else {
       try {
         const jsonQuery = JSON.parse(query as string);
