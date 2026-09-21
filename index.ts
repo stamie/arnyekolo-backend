@@ -41,7 +41,7 @@ async function queryOrders(jsonQuery: json) {
     await client.connect();
     // Send a ping to confirm a successful connection
     const collection = Db.collection("orders");
-    const res = await collection.find(jsonQuery);
+    const res = await collection.find();
     response_ = { 
       result: res,
       message: "Documents queried successfully."
