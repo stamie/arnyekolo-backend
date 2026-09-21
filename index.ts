@@ -114,18 +114,26 @@ app.post('/calc', async (req, res) => {
 app.get(('/backend', async (req, res) => {
   return res.status(200).json({ message: 'Backend működik!' });
 }));
+app.get(('/backend/rendelesek', async (req, res) => {
+  const query = req.query.q; // Lekérdezési paraméterek a URL-ből
+  const token = req.query.tok as string;
+  if (token === 'secret-token-123') {
+    const result_ = await queryOrders(query);
+    return res.json({ success: true, token: 'secret-token-123', result: result_ });
+  } else {
+    return res.status(401).json({ error: 'Hibás token.' });
+  }
+}));
 
-app.post('/backend/rendelesek', async (req, res) => {
-  const {username, password, query} = req.body;
+app.post('/backend/login', async (req, res) => {
+  const {username, password} = req.body;
   if (!username || !password) {
     return res.status(400).json({ error: 'Hiányzó paraméterek. Kérlek add meg a username és password paramétereket.' });
   }  
   // Itt végezheted el a backend logikát, például ellenőrizheted a felhasználót és jelszót.
   // Például:
   if (username === 'admin' && password === 'password123') {
-    const result_ = await queryOrders(query);
-    return res.json({ success: true, token: 'secret-token-123' });
-    return res.json({ message: 'Sikeres bejelentkezés!', result: result_ });
+    return res.json({ success: true, token: 'secret-token-123', result: result_ });
   } else {
     return res.status(401).json({ error: 'Hibás felhasználónév vagy jelszó.' });
   }
