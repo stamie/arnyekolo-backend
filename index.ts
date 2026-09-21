@@ -53,8 +53,9 @@ async function queryOrders(jsonQuery: json) {
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
-    return response_;
+    
   }
+  return response_;
 }
 
 const app = express();
