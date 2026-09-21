@@ -116,16 +116,16 @@ app.get('/backend', async (req, res) => {
 });
 app.get('/backend/rendelesek', async (req, res) => {
   const query = req.query.q; // Lekérdezési paraméterek a URL-ből
-  const token = req.query.t as string;
+  const token = req.query.token as string;
   if (token === 'secret-token-123') {
     if (!query) {
       const result_ = await queryOrders(JSON.parse('{}'));
-      return res.json({ success: true, t: 'secret-token-123', result: result_ });   
+      return res.json({ success: true, token: 'secret-token-123', result: result_ });   
     } else {
       try {
         const jsonQuery = JSON.parse(query as string);
         const result_ = await queryOrders(jsonQuery);
-        return res.json({ success: true, t: 'secret-token-123', result: result_ });
+        return res.json({ success: true, token: 'secret-token-123', result: result_ });
       } catch (error) {
         return res.status(400).json({ error: 'Hibás lekérdezési paraméterek. Kérlek add meg a q paramétert JSON formátumban.' });
       }
