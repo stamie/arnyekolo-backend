@@ -111,10 +111,10 @@ app.post('/calc', async (req, res) => {
   }
   
 });
-app.get(('/backend', async (req, res) => {
+app.get('/backend', async (req, res) => {
   return res.status(200).json({ message: 'Backend működik!' });
 }));
-app.get(('/backend/rendelesek/:token/:query', async (req, res) => {
+app.get('/backend/rendelesek/:token/:query', async (req, res) => {
   const query = req.params.query; // Lekérdezési paraméterek a URL-ből
   const token = req.params.token as string;
   if (token === 'secret-token-123') {
